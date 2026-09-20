@@ -1,0 +1,242 @@
+{
+  "VIRGIL-041": {
+    "category": "Brute Force & Password Spraying",
+    "label": "benign"
+  },
+  "VIRGIL-042": {
+    "category": "Brute Force & Password Spraying",
+    "label": "malicious"
+  },
+  "VIRGIL-043": {
+    "category": "Brute Force & Password Spraying",
+    "label": "ambiguous"
+  },
+  "VIRGIL-044": {
+    "category": "Impossible Travel",
+    "label": "benign"
+  },
+  "VIRGIL-045": {
+    "category": "Impossible Travel",
+    "label": "malicious"
+  },
+  "VIRGIL-046": {
+    "category": "Impossible Travel",
+    "label": "ambiguous"
+  },
+  "VIRGIL-047": {
+    "category": "Privilege Escalation",
+    "label": "benign"
+  },
+  "VIRGIL-048": {
+    "category": "Privilege Escalation",
+    "label": "malicious"
+  },
+  "VIRGIL-049": {
+    "category": "Privilege Escalation",
+    "label": "ambiguous"
+  },
+  "VIRGIL-050": {
+    "category": "MFA Fatigue / Bypass",
+    "label": "benign"
+  },
+  "VIRGIL-051": {
+    "category": "MFA Fatigue / Bypass",
+    "label": "malicious"
+  },
+  "VIRGIL-052": {
+    "category": "MFA Fatigue / Bypass",
+    "label": "ambiguous"
+  },
+  "VIRGIL-053": {
+    "category": "Suspicious Process Execution",
+    "label": "benign"
+  },
+  "VIRGIL-054": {
+    "category": "Suspicious Process Execution",
+    "label": "malicious"
+  },
+  "VIRGIL-055": {
+    "category": "Suspicious Process Execution",
+    "label": "ambiguous"
+  },
+  "VIRGIL-056": {
+    "category": "Living off the Land (LotL) Binaries",
+    "label": "benign"
+  },
+  "VIRGIL-057": {
+    "category": "Living off the Land (LotL) Binaries",
+    "label": "malicious"
+  },
+  "VIRGIL-058": {
+    "category": "Living off the Land (LotL) Binaries",
+    "label": "ambiguous"
+  },
+  "VIRGIL-059": {
+    "category": "Obfuscated Code Execution",
+    "label": "benign"
+  },
+  "VIRGIL-060": {
+    "category": "Obfuscated Code Execution",
+    "label": "malicious"
+  },
+  "VIRGIL-061": {
+    "category": "Obfuscated Code Execution",
+    "label": "ambiguous"
+  },
+  "VIRGIL-062": {
+    "category": "Persistence Mechanisms",
+    "label": "benign"
+  },
+  "VIRGIL-063": {
+    "category": "Persistence Mechanisms",
+    "label": "malicious"
+  },
+  "VIRGIL-064": {
+    "category": "Persistence Mechanisms",
+    "label": "ambiguous"
+  },
+  "VIRGIL-065": {
+    "category": "Data Exfiltration",
+    "label": "benign"
+  },
+  "VIRGIL-066": {
+    "category": "Data Exfiltration",
+    "label": "malicious"
+  },
+  "VIRGIL-067": {
+    "category": "Data Exfiltration",
+    "label": "ambiguous"
+  },
+  "VIRGIL-068": {
+    "category": "Command and Control (C2) Beacons",
+    "label": "benign"
+  },
+  "VIRGIL-069": {
+    "category": "Command and Control (C2) Beacons",
+    "label": "malicious"
+  },
+  "VIRGIL-070": {
+    "category": "Command and Control (C2) Beacons",
+    "label": "ambiguous"
+  },
+  "VIRGIL-071": {
+    "category": "Port Scanning & Reconnaissance",
+    "label": "benign"
+  },
+  "VIRGIL-072": {
+    "category": "Port Scanning & Reconnaissance",
+    "label": "malicious"
+  },
+  "VIRGIL-073": {
+    "category": "Port Scanning & Reconnaissance",
+    "label": "ambiguous"
+  },
+  "VIRGIL-074": {
+    "category": "API Abuse / Unusual API Calls",
+    "label": "benign"
+  },
+  "VIRGIL-075": {
+    "category": "API Abuse / Unusual API Calls",
+    "label": "malicious"
+  },
+  "VIRGIL-076": {
+    "category": "API Abuse / Unusual API Calls",
+    "label": "ambiguous"
+  },
+  "VIRGIL-077": {
+    "category": "Resource Misconfigurations",
+    "label": "benign"
+  },
+  "VIRGIL-078": {
+    "category": "Resource Misconfigurations",
+    "label": "malicious"
+  },
+  "VIRGIL-079": {
+    "category": "Resource Misconfigurations",
+    "label": "ambiguous"
+  },
+  "VIRGIL-080": {
+    "category": "Shadow IT & Unauthorized Provisioning",
+    "label": "benign"
+  },
+  "VIRGIL-081": {
+    "category": "Shadow IT & Unauthorized Provisioning",
+    "label": "malicious"
+  },
+  "VIRGIL-082": {
+    "category": "Shadow IT & Unauthorized Provisioning",
+    "label": "ambiguous"
+  },
+  "VIRGIL-083": {
+    "category": "Mass Phishing / Impersonation",
+    "label": "benign"
+  },
+  "VIRGIL-084": {
+    "category": "Mass Phishing / Impersonation",
+    "label": "malicious"
+  },
+  "VIRGIL-085": {
+    "category": "Mass Phishing / Impersonation",
+    "label": "ambiguous"
+  },
+  "VIRGIL-086": {
+    "category": "Malicious Attachments",
+    "label": "benign"
+  },
+  "VIRGIL-087": {
+    "category": "Malicious Attachments",
+    "label": "malicious"
+  },
+  "VIRGIL-088": {
+    "category": "Malicious Attachments",
+    "label": "ambiguous"
+  },
+  "VIRGIL-089": {
+    "category": "Suspicious Link Clicks",
+    "label": "benign"
+  },
+  "VIRGIL-090": {
+    "category": "Suspicious Link Clicks",
+    "label": "malicious"
+  },
+  "VIRGIL-091": {
+    "category": "Suspicious Link Clicks",
+    "label": "ambiguous"
+  },
+  "VIRGIL-092": {
+    "category": "Mass File Access / Modification",
+    "label": "benign"
+  },
+  "VIRGIL-093": {
+    "category": "Mass File Access / Modification",
+    "label": "malicious"
+  },
+  "VIRGIL-094": {
+    "category": "Mass File Access / Modification",
+    "label": "ambiguous"
+  },
+  "VIRGIL-095": {
+    "category": "Policy Violations",
+    "label": "benign"
+  },
+  "VIRGIL-096": {
+    "category": "Policy Violations",
+    "label": "malicious"
+  },
+  "VIRGIL-097": {
+    "category": "Policy Violations",
+    "label": "ambiguous"
+  },
+  "VIRGIL-098": {
+    "category": "Cross-Category: Identity Attack",
+    "label": "malicious"
+  },
+  "VIRGIL-099": {
+    "category": "Cross-Category: Endpoint Intrusion",
+    "label": "malicious"
+  },
+  "VIRGIL-100": {
+    "category": "Cross-Category: Authorized Security Test",
+    "label": "benign"
+  }
+}

@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Secrets
+.env
+
+# Eval output
+eval/results/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

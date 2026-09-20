@@ -1,0 +1,11 @@
+# Notebook runtime
+jupyter>=1.0
+notebook>=7.0
+ipywidgets>=8.0
+pandas>=2.0
+
+# Investigator providers — install the one you use.
+# (OpenAI-compatible and Claude providers use plain REST, no SDK needed.)
+google-genai>=1.0   # Gemini investigator only
+
+# eval/evaluate.py itself is stdlib-only.
