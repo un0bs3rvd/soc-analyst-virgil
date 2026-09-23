@@ -6,13 +6,9 @@ Synthetic alerts for demo and evaluation. Nothing here is real telemetry.
 
 | File | Contents |
 |---|---|
-| `questions.json` | The 8 triage questions Jev scores every alert against |
-| `demo-states.json` | Alerts `VIRGIL-001`–`040` — endpoint & identity detections |
+| `../demo-states.json` | Alerts `VIRGIL-001`–`040` — endpoint & identity detections (kept at the repo root because the notebook loads it from its own directory) |
 | `demo_states_041_100.json` | Alerts `VIRGIL-041`–`100` — 20 attack categories: brute force, impossible travel, MFA fatigue, LotL binaries, persistence, exfiltration, C2, recon, API abuse, cloud misconfig, shadow IT, phishing, malicious attachments, mass file access, policy violations, and three cross-category multi-stage incidents |
 | `ground_truth/` | One file per batch: `VIRGIL-xxx → label` (`benign` / `malicious` / `ambiguous`), plus an attack `category` per alert in the 041–100 file |
-
-The notebook loads `questions.json` and `demo-states.json` from this folder via its
-`DATA_DIR` config (default `"data"`).
 
 Label counts across both batches: **38 benign · 43 malicious · 20 ambiguous**.
 `ambiguous` means "this one should reach a human" — the correct pipeline outcome is
@@ -51,3 +47,8 @@ carry a `cloud` section instead of a host. New sections are fine; anything outsi
 3. `python eval/evaluate.py` — that's it.
 
 If a state has no ground-truth label the harness warns and skips it.
+
+## License
+
+Everything in this directory (and `../demo-states.json`) is synthetic and licensed
+under [CC BY 4.0](LICENSE) — share and adapt with attribution.

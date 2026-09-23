@@ -1,0 +1,73 @@
+{
+  "true_positive": {
+    "type": "noul",
+    "instructions": "Determine whether this security alert represents genuine malicious or unauthorized activity.",
+    "criteria": {
+      "true": "The alert is supported by evidence of malicious or unauthorized behavior.",
+      "false": "The alert is benign, expected, authorized, or a detection false positive."
+    }
+  },
+
+  "requires_immediate_response": {
+    "type": "noul",
+    "instructions": "Determine whether immediate containment or response is warranted.",
+    "criteria": {
+      "true": "Evidence indicates an active high-confidence threat where delaying response could increase impact.",
+      "false": "Immediate containment is not justified by the available evidence."
+    }
+  },
+
+  "requires_investigation_before_action": {
+    "type": "noul",
+    "instructions": "Determine whether additional investigation is required before automated response action can safely be taken.",
+    "criteria": {
+      "true": "The available evidence is too ambiguous or incomplete to justify automated response without gathering additional evidence.",
+      "false": "The available evidence is sufficiently strong to permit the appropriate automated response without waiting for additional investigation."
+    }
+  },
+
+  "increase_monitoring": {
+    "type": "noul",
+    "instructions": "Determine whether additional security monitoring or telemetry collection should be enabled for the affected entity.",
+    "criteria": {
+      "true": "The activity is suspicious, uncertain, or potentially malicious and additional telemetry would help detect related or escalating behavior.",
+      "false": "Additional monitoring is unlikely to materially improve detection, investigation, or response."
+    }
+  },
+
+  "preserve_evidence": {
+    "type": "noul",
+    "instructions": "Determine whether relevant security evidence should be preserved for investigation or incident response.",
+    "criteria": {
+      "true": "The activity may represent a security incident and relevant forensic artifacts should be retained to support investigation, scoping, attribution, or recovery.",
+      "false": "The available activity does not justify additional forensic evidence preservation."
+    }
+  },
+
+  "block_indicator": {
+    "type": "noul",
+    "instructions": "Determine whether an identified threat indicator should be blocked.",
+    "criteria": {
+      "true": "A specific IP address, domain, URL, file hash, or other observable has sufficient evidence of malicious use to justify blocking it.",
+      "false": "No identified indicator has sufficient evidence of malicious use to justify blocking."
+    }
+  },
+
+  "isolate_endpoint": {
+    "type": "noul",
+    "instructions": "Determine whether the affected endpoint should be isolated from the network.",
+    "criteria": {
+      "true": "The endpoint shows sufficiently strong evidence of active compromise and isolation would reduce the risk of lateral movement, command and control, exfiltration, propagation, or additional impact.",
+      "false": "The available evidence does not justify the operational impact of isolating the endpoint."
+    }
+  },
+
+  "disable_account": {
+    "type": "noul",
+    "instructions": "Determine whether the affected user or service account should be disabled.",
+    "criteria": {
+      "true": "The account shows sufficiently strong evidence of compromise or malicious use and disabling it would reduce the risk of continued unauthorized access or additional impact.",
+      "false": "The available evidence does not justify disabling the account."
+    }
+  }
+}

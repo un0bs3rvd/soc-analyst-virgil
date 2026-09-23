@@ -36,7 +36,7 @@ With no keys at all, the pipeline runs in clearly-labeled mock mode.
 
 The wide gap between 0.10 and 0.95 is the point: the machine may only act at the
 extremes, and everything in between is investigated. Tighten the band as you gain trust
-— widen it only as the eval shows the machine is right (see [EVALUATION.md](EVALUATION.md)).
+— see [ROADMAP.md](ROADMAP.md) on calibrating against historical outcomes.
 
 ## Response policy
 
@@ -69,4 +69,4 @@ force a human in the loop.
 | `MOCK_JEV` | `None` | `None` = mock iff no key · `True` = force mock (even with a key — useful for A/B) · `False` = require a key |
 | `SHOW_RICH_TABLES` | `False` | Also render pandas tables alongside the text trace |
 | `HIDDEN_UNTIL_INVESTIGATION` | `("enrichment", "correlated_activity")` | State sections withheld from pass 1 and from the investigator's direct view; also the merge whitelist in `sanitize_extra` |
-| `DATA_DIR` | `"data"` | Folder containing `questions.json` / `demo-states.json`, resolved against the notebook's directory; set it to your own folder to point at real alerts |
+| `DATA_DIR` | `None` | Folder containing `questions.json` / `demo-states.json` if not the notebook's directory |

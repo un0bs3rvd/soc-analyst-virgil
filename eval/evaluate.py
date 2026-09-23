@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 #!/usr/bin/env python3
 """Evaluate the Virgil triage pipeline against the labeled demo alert states.
 
@@ -57,9 +59,8 @@ CONTAINMENT_ACTIONS = ("block_indicator", "isolate_endpoint", "disable_account")
 def load_pipeline_namespace(notebook_path=NOTEBOOK):
     """Execute the notebook's code cells and return the resulting namespace.
 
-    The notebook locates its data via DATA_DIR ("data" in this repo), resolved
-    against the current working directory, so we execute with cwd pinned to the
-    repo root.
+    The notebook locates questions.json / demo-states.json via the current
+    working directory, so we execute with cwd pinned to the repo root.
     """
     nb = json.loads(Path(notebook_path).read_text(encoding="utf-8"))
     ns = {"__name__": "__virgil_notebook__"}
@@ -100,7 +101,7 @@ def load_labeled_cases(which="all"):
     sources = []
     if which in ("all", "001-040"):
         sources.append((
-            REPO_ROOT / "data/demo-states.json",
+            REPO_ROOT / "demo-states.json",
             REPO_ROOT / "data/ground_truth/demo_states_001_040_ground_truth.json"))
     if which in ("all", "041-100"):
         sources.append((

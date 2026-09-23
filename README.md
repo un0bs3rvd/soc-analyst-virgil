@@ -8,7 +8,7 @@ withholds — response actions based on auditable probability thresholds.
 
 ![status](https://img.shields.io/badge/status-POC%2Fdemo-orange)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
-![license](https://img.shields.io/badge/license-BUSL--1.1-orange)
+![license](https://img.shields.io/badge/license-AGPL--3.0-blue)
 
 ```
 ALERT
@@ -61,8 +61,8 @@ pip install -r requirements.txt
 cp .env.example .env    # then fill in what you have, or export the vars
 ```
 
-Then launch Jupyter from the repo root (the notebook loads `data/questions.json` and
-`data/demo-states.json` via its `DATA_DIR` setting):
+Then launch Jupyter from the repo root (the notebook loads `questions.json` and
+`demo-states.json` from its own directory):
 
 ```bash
 jupyter notebook SOC-Analyst-Virgil.ipynb
@@ -128,9 +128,9 @@ stands in for plumbing, not for Jev — read
 
 ```
 ├── SOC-Analyst-Virgil.ipynb     # the pipeline — single source of truth
+├── questions.json               # the 8 triage questions
+├── demo-states.json             # demo alerts 001–040
 ├── data/
-│   ├── questions.json           # the 8 triage questions
-│   ├── demo-states.json         # demo alerts 001–040
 │   ├── demo_states_041_100.json # demo alerts 041–100 (20 attack categories)
 │   └── ground_truth/            # labels for all 100 states
 ├── eval/
@@ -138,7 +138,8 @@ stands in for plumbing, not for Jev — read
 └── docs/
     ├── ARCHITECTURE.md          # two-pass design, gate, policy, guardrails
     ├── CONFIGURATION.md         # every knob, with guidance
-    └── EVALUATION.md            # methodology + baseline results
+    ├── EVALUATION.md            # methodology + baseline results
+    └── ROADMAP.md               # POC → dev → production checklist
 ```
 
 ## Limitations (it's a POC)
@@ -152,21 +153,16 @@ stands in for plumbing, not for Jev — read
 - **Thresholds are starting points**, not tuned values — calibrate them against your own
   historical alert outcomes before trusting them in a dev environment.
 
-## Contributing
-
-Issues and PRs welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Please run
-`python eval/evaluate.py` before submitting pipeline changes.
-
 ## License
 
-[BUSL-1.1](LICENSE) (Business Source License 1.1) — source-available, not OSI open
-source. Each release converts to **GPL v3.0 or later** two years after that release.
+Free software under [AGPLv3](LICENSE) — copyleft, including the network-use clause:
+if you run a modified version as a service (e.g. wired to your SIEM), you must offer
+that version's source to its users. The synthetic dataset and ground-truth labels in
+[`data/`](data/) (including `demo-states.json`) are separately licensed under
+[CC BY 4.0](data/LICENSE).
 
-**Free production use:** academia, nonprofit research, and personal / non-commercial
-research — granted by the Additional Use Grant in the LICENSE file.
+"VIRGIL" and associated project branding are trademarks of un0bs3rvd; the licenses
+above grant no rights to the name.
 
-**Paid production use** (requires a commercial license from the licensor): enterprises,
-MSSPs/MDRs, commercial SOCs, security vendors, and hosted Virgil services.
-
-Whatever your use case: this is a research/demo project — don't point it at production
-infrastructure, and keep a human in the loop for high-impact actions.
+This is a research/demo project: don't point it at production infrastructure, and
+keep a human in the loop for high-impact actions.

@@ -77,7 +77,7 @@ exercise against your own alert history.
 
 ## Data notes
 
-- `data/demo-states.json`: alerts `VIRGIL-001`–`040` — endpoint/identity detections.
+- `demo-states.json` (repo root): alerts `VIRGIL-001`–`040` — endpoint/identity detections.
 - `data/demo_states_041_100.json`: alerts `VIRGIL-041`–`100` — 20 attack categories
   including cloud/SaaS, phishing, and data exfiltration. Some of these states
   intentionally have no `host` section (e.g. a GitHub API-abuse alert) — the pipeline is
